@@ -33,7 +33,7 @@ module Minion
 		@@logger.call(msg)
 	end
 
-	def error(&blk)
+	def error(blk)
 		@@error_handler = blk
 	end
 
