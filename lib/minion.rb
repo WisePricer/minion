@@ -3,7 +3,7 @@ require 'json' unless defined? ActiveSupport::JSON
 require 'amqp'
 require 'bunny'
 require 'minion/handler'
-
+require 'mq'
 require 'bunny'
 require 'minion/handler'
 
