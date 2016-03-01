@@ -4,6 +4,9 @@ require 'amqp'
 require 'bunny'
 require 'minion/handler'
 
+require 'bunny'
+require 'minion/handler'
+
 module Minion
 	extend self
 
@@ -25,6 +28,8 @@ module Minion
 
 		encoded = JSON.dump(data)
 		log "send: #{queue}:#{encoded}"
+		# ch = bunny.create_channel
+		# ch.
 		bunny.queue(queue, :durable => true, :auto_delete => false).publish(encoded)
 	end
 
@@ -61,8 +66,17 @@ module Minion
 
 					next_job(args, result)
 				rescue Object => e
-					raise unless error_handler
-					error_handler.call(e,queue,m,h)
+					raise e unless error_handler
+					log e
+					# puts "Errorrr:    ", e
+					if error_handler
+						puts "errrorororr"
+						puts e
+						#error_handler.call(e,queue,m,h)
+					end
+				ensure
+					#enqueue(queue,m) if queue and not queue.empty?
+
 				end
 				h.ack
 				check_all
@@ -140,5 +154,4 @@ module Minion
 	def error_handler
 		@@error_handler ||= nil
 	end
-end
-
+end%
