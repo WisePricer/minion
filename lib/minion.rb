@@ -154,4 +154,5 @@ module Minion
 	def error_handler
 		@@error_handler ||= nil
 	end
-end%
+end
+
